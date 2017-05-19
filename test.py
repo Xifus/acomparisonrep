@@ -125,8 +125,8 @@ class TestSamplingMethod(unittest.TestCase):
         k = 2
         lower = 0
         upper = 1
-        result_1 = sm.choose_sampling_method(lower, upper, N, k, "S")
-        result_2 = sm.choose_sampling_method(lower, upper, N, k, "L")
+        result_1 = sm.choose_sampling_method(N, k, "S")
+        result_2 = sm.choose_sampling_method(N, k, "L")
         row, col = result_1.shape
         for i in range(row):
             for j in range(col):

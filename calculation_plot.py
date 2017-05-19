@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sampling_method as sm
 
-def n_calculate(k, N, a, R, rl, lower = 0, upper = 1):
+def n_calculate(k, N, a, R, rl):
     leng = len(N)
     #er_si = np.zeros((R, k))
     #er_sti = np.zeros((R, k))
@@ -11,12 +11,12 @@ def n_calculate(k, N, a, R, rl, lower = 0, upper = 1):
     er_sti_N = np.zeros(((leng * R), k))
     for i in range(leng):
         c = i*R
-        er_si, er_sti = calculate(k, N[i], a, R, rl, lower, upper)
+        er_si, er_sti = calculate(k, N[i], a, R, rl)
         er_si_N[c:c+R, :] = er_si
         er_sti_N[c:c+R, :] = er_sti
     return er_si_N, er_sti_N
 
-def calculate(k, N, a, R, rl = "S", lower = 0, upper = 1):
+def calculate(k, N, a, R, rl = "S"):
     #sampling by chaospy method. rule = sampling method, R = replicated times
     er_si = np.zeros((R, k))
     er_sti = np.zeros((R, k))
@@ -24,7 +24,7 @@ def calculate(k, N, a, R, rl = "S", lower = 0, upper = 1):
     
     for i in range(R):
         #create a Nx2k sample matrix
-        x = sm.choose_sampling_method(lower, upper, N, 2*k, rl)
+        x = sm.choose_sampling_method(N, 2*k, rl)
     
         #create the A, B, A_i_B matrix
         X = sm.create_sample_matrix(x)
@@ -32,7 +32,7 @@ def calculate(k, N, a, R, rl = "S", lower = 0, upper = 1):
     
         #generate a shift matrix
         #z = cp_sampling(lower, upper, rows, cols, rl)
-        z_1 = sm.choose_sampling_method(lower, upper, 1, cols, rl)
+        z_1 = sm.choose_sampling_method(1, cols, rl)
         z = np.tile(z_1, (rows, 1))
         X_shift = acn.shift(X, z)
         

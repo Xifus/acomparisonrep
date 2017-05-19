@@ -17,13 +17,15 @@ def create_sample_matrix(sample_matrix):
         X[((2 + i) * N):((3 + i) * N), i:(i + 1)] = B[0:N, i:(i + 1)]
     return X
 
-def choose_sampling_method(lower, upper, N, k, rl):
+def choose_sampling_method(N, k, rl):
     x = np.zeros((N, k))
-    if rl == "S" or rl == "L" or rl == "R":
-        Sb = cp.Uniform(lower, upper)
-        Sb_dist = cp.J(Sb)
-        x = Sb_dist.sample((N, k), rule = rl)
-    if rl == "sobol":
+    if rl == "R":
+        x = np.random.random((N, k))
+    elif rl == "S":
+        x = cp.dist.sobol_lib.sobol(k, N).T
+    elif rl == "L":
+        x = cp.latin_hypercube(k, N).T
+    elif rl == "sobol":
         seed = 123
         for i in range(N):
             r, seed = i4_sobol(k, seed)
