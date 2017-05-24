@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sampling_method as sm
 
-def n_calculate(k, N, a, R, rl):
+def n_calculate(k, N, a, R, rl, rule = "V-function"):
     leng = len(N)
     #er_si = np.zeros((R, k))
     #er_sti = np.zeros((R, k))
@@ -11,12 +11,12 @@ def n_calculate(k, N, a, R, rl):
     er_sti_N = np.zeros(((leng * R), k))
     for i in range(leng):
         c = i*R
-        er_si, er_sti = calculate(k, N[i], a, R, rl)
+        er_si, er_sti = calculate(k, N[i], a, R, rl, rule)
         er_si_N[c:c+R, :] = er_si
         er_sti_N[c:c+R, :] = er_sti
     return er_si_N, er_sti_N
 
-def calculate(k, N, a, R, rl = "S"):
+def calculate(k, N, a, R, rl = "S", rule = "V-function"):
     #sampling by chaospy method. rule = sampling method, R = replicated times
     er_si = np.zeros((R, k))
     er_sti = np.zeros((R, k))
@@ -36,13 +36,13 @@ def calculate(k, N, a, R, rl = "S"):
         z = np.tile(z_1, (rows, 1))
         X_shift = acn.shift(X, z)
         
-        estimated_var = acn.e_var(k, X_shift, a, N)
+        estimated_var = acn.e_var(k, X_shift, a, N, rule)
         
         estimated_si = np.zeros((k))
         estimated_sti_1 = np.zeros((k))
-        estimated_si = acn.e_si(k, X_shift, a, N, estimated_var)
-        estimated_sti_1 = acn.e_sti_1(k, X_shift, a, N, estimated_var)
-        #estimated_Sti_2 = acn.e_sti_2(k, X_shift, a, N, estimated_var)
+        estimated_si = acn.e_si(k, X_shift, a, N, estimated_var, rule)
+        estimated_sti_1 = acn.e_sti_1(k, X_shift, a, N, estimated_var, rule)
+        #estimated_Sti_2 = acn.e_sti_2(k, X_shift, a, N, estimated_var, rule)
         
         er_si[i, :] = estimated_si
         er_sti[i, :] = estimated_sti_1

@@ -1,17 +1,18 @@
 import numpy as np
 import math as math
 
-def testfunction(k, X, a):
+def testfunction(k, X, a, rule = "V-function"):
     #build test function
-    if k != len(X) or k != len(a) or len(X) != len(a):
-        return False
-    Y = 1.
-    for i in range(k):
-        if a[i] + 1. == 0:
+    if rule == "V-function":
+        if k != len(X) or k != len(a) or len(X) != len(a):
             return False
-        v = (abs(4. * X[i] - 2.) + a[i])/(1. + a[i])
-        Y = Y * v
-    return Y
+        Y = 1.
+        for i in range(k):
+            if a[i] + 1. == 0:
+                return False
+            v = (abs(4. * X[i] - 2.) + a[i])/(1. + a[i])
+            Y = Y * v
+        return Y
 
 def vana(a):
     #analytical value for V_i
@@ -21,6 +22,7 @@ def vana(a):
 
 def analyticalvalues(k, a):
     if k <= 0 or k != len(a):
+        print "something is wrong"
         return False
     #v-function analytical values
     var = 1.
@@ -64,52 +66,52 @@ def m_a_e_s_st(k, AES):
     MAES = float(np.sum(AES))
     return math.log(MAES/k)
     
-def e_var(k, X, a, N):
+def e_var(k, X, a, N, rule = "V-function"):
     #estimated variance
     if k != len(a):
         return False
     A = 0.
     B = 0.
     for j in range(N):
-        f_A = testfunction(k, X[j, :], a)
-        f_B = testfunction(k, X[N + j, :], a)
+        f_A = testfunction(k, X[j, :], a, rule)
+        f_B = testfunction(k, X[N + j, :], a, rule)
         A = math.pow(f_A, 2) + A
         B = f_A * f_B + B
     return abs(A/N - B/N)
         
-def e_si(k, X, a, N, EVar):
+def e_si(k, X, a, N, EVar, rule = "V-function"):
     #estimated S_i, return an array
     S_i = np.zeros((k))
     for i in range(k):
         AB = 0.
         for j in range(N):
-            f_B = testfunction(k, X[N + j, :], a)
-            f_AB = testfunction(k, X[(2 + i) * N + j, :], a)
-            f_A = testfunction(k, X[j, :], a)
+            f_B = testfunction(k, X[N + j, :], a, rule)
+            f_AB = testfunction(k, X[(2 + i) * N + j, :], a, rule)
+            f_A = testfunction(k, X[j, :], a, rule)
             AB = f_B * (f_AB - f_A) + AB
         S_i[i] = AB/(N * EVar)
     return S_i
         
-def e_sti_1(k, X, a, N, EVar):
+def e_sti_1(k, X, a, N, EVar, rule = "V-function"):
     #estimated S_ti by first way, return an array
     S_ti = np.zeros((k))
     for i in range(k):
         AB = 0.
         for j in range(N):
-            f_A = testfunction(k, X[j, :], a)
-            f_AB = testfunction(k, X[(2 + i) * N + j, :], a)
+            f_A = testfunction(k, X[j, :], a, rule)
+            f_AB = testfunction(k, X[(2 + i) * N + j, :], a, rule)
             AB = math.pow((f_A - f_AB), 2) + AB
         S_ti[i] = AB/(2. * N * EVar)
     return S_ti
 
-def e_sti_2(k, X, a, N, Evar):
+def e_sti_2(k, X, a, N, Evar, rule = "V-function"):
     #estimated S_ti by second way, return an array
     S_ti = np.zeros((k))
     for i in range(k):
         AB = 0.
         for j in range(k):
-            f_AB = testfunction(k, X[(2 + i) * N + j, :], a)
-            f_A = testfunction(k, X[j, :], a)
+            f_AB = testfunction(k, X[(2 + i) * N + j, :], a, rule)
+            f_A = testfunction(k, X[j, :], a, rule)
             AB = f_A * (f_A - f_AB) + AB
         S_ti[i] = AB/(N * Evar)
     return S_ti
