@@ -124,7 +124,30 @@ def draw_maest_compare_plot(N, maest_1, maest_2, rule):
     plt.legend(loc='best')
     plt.show()
     
+def draw_maest_plot(N, maes_1, maes_2, maes_3, maest_1, maest_2, maest_3):
     
+    plt.figure()
+    
+    plt.xlabel('N(log scale)')
+    plt.ylabel('log(MAEST)')
+    plt.xscale('log')
+    plt.plot(N, maes_1, 'bx-', label = "Sobol")
+    plt.plot(N, maes_2, 'rx-', label = "LHS")
+    plt.plot(N, maes_3, 'gx-', label = "Random")
+    plt.title("Jansen 1999")
+    plt.legend(loc='best')
+    plt.show()
+    
+
+    plt.xlabel('N(log scale)')
+    plt.ylabel('log(MAEST)')
+    plt.xscale('log')
+    plt.plot(N, maest_1, 'bx-', label = "Sobol")
+    plt.plot(N, maest_2, 'rx-', label = "LHS")
+    plt.plot(N, maest_3, 'gx-', label = "Random")
+    plt.title("Sobol' 2007")
+    plt.legend(loc='best')
+    plt.show()    
     
     
     
