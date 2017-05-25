@@ -4,7 +4,7 @@ In S. Tarantola et al, they used Sobol and LSS(Latin Supercube Sampling). For he
 
 The main code files are:
 
-  a_comparison.py: function to calculate test function; analytical values for corresponding test function; function for estimated variance; function for estimated first order effects and total effects (in two ways: Jansen 1999 e_sti_1; Sobol' 2007 e_sti_2); function for measuring convergence AES, MAES, AEST, MAEST. And also there are two tool functions for shifting sample matrix (less_eq_integer_matrix and shift).
+  <dd>a_comparison.py: function to calculate test function; analytical values for corresponding test function; function for estimated variance; function for estimated first order effects and total effects (in two ways: Jansen 1999 e_sti_1; Sobol' 2007 e_sti_2); function for measuring convergence AES, MAES, AEST, MAEST. And also there are two tool functions for shifting sample matrix (less_eq_integer_matrix and shift).</dd>
   
   calculation_plot.py: This is the main calculation code. It stores value of R replicated times of estimated si and sti for multiple N into a big matrix. After that, the function passes the matrix to calculate AES, MAES, AEST, MAEST. Finally, I use the value of AES, MAEST, AEST, MAEST to draw convergence and i_wise error plot for each case.
   
