@@ -4,23 +4,22 @@ In S. Tarantola et al, they used Sobol and LSS(Latin Supercube Sampling). For he
 
 The main code files are:
 <dl>
-  <dd>a_comparison.py: function to calculate test function; analytical values for corresponding test function; function for estimated variance; function for estimated first order effects and total effects (in two ways: Jansen 1999 e_sti_1; Sobol' 2007 e_sti_2); function for measuring convergence AES, MAES, AEST, MAEST. And also there are two tool functions for shifting sample matrix (less_eq_integer_matrix and shift).</dd>
-</dl>
+  <dd>**a_comparison.py**: function to calculate test function; analytical values for corresponding test function; function for estimated variance; function for estimated first order effects and total effects (in two ways: Jansen 1999 e_sti_1; Sobol' 2007 e_sti_2); function for measuring convergence AES, MAES, AEST, MAEST. And also there are two tool functions for shifting sample matrix (less_eq_integer_matrix and shift).</dd>
 
-  calculation_plot.py: This is the main calculation code. It stores value of R replicated times of estimated si and sti for multiple N into a big matrix. After that, the function passes the matrix to calculate AES, MAES, AEST, MAEST. Finally, I use the value of AES, MAEST, AEST, MAEST to draw convergence and i_wise error plot for each case.
+  <dd>calculation_plot.py: This is the main calculation code. It stores value of R replicated times of estimated si and sti for multiple N into a big matrix. After that, the function passes the matrix to calculate AES, MAES, AEST, MAEST. Finally, I use the value of AES, MAEST, AEST, MAEST to draw convergence and i_wise error plot for each case.</dd>
   
-  compare_sti.py: This is a modified calculation_plot.py code for comparing the convergence rate and efficience of Jansen 1999 method and Sobol' 2007 method, according to A. Saltelli et al. "Variance based sensitivity analysis of model output. Design and estimator for the total sensitivity index". I keep sampling method, sampling matrix all the same and just change the total effects calculation method.
+  <dd>compare_sti.py: This is a modified calculation_plot.py code for comparing the convergence rate and efficience of Jansen 1999 method and Sobol' 2007 method, according to A. Saltelli et al. "Variance based sensitivity analysis of model output. Design and estimator for the total sensitivity index". I keep sampling method, sampling matrix all the same and just change the total effects calculation method.</dd>
   
-  comparison_abs_maes.py: This is a function to graph Fig.7 comparison of absolute MAES values for different test case function. Because Chaospy's Sobol sampling is only up to 40, so I only compared k = 10 and k = 19.
+  <dd>comparison_abs_maes.py: This is a function to graph Fig.7 comparison of absolute MAES values for different test case function. Because Chaospy's Sobol sampling is only up to 40, so I only compared k = 10 and k = 19.</dd>
   
-  convergence_rate_f.py: This contains functions to use trend line to estimate convergence rates of AES, MAES, AEST, MAEST. Then I draw the trend line and the estimating plot to check the reliability of the trend line.
+  <dd>convergence_rate_f.py: This contains functions to use trend line to estimate convergence rates of AES, MAES, AEST, MAEST. Then I draw the trend line and the estimating plot to check the reliability of the trend line.</dd>
   
-  sampling_method.py: I put the sampling method, sampling matrix, and coefficient (different text case A1-1, B, C etc) creating functions in this module. I can easily add more rules in the future.
+  <dd>sampling_method.py: I put the sampling method, sampling matrix, and coefficient (different text case A1-1, B, C etc) creating functions in this module. I can easily add more rules in the future.</dd>
   
-  test.py: This is a simple unittest code for testing a_comparison.py and sampling_method.py. It needs update for new modules.
+  <dd>test.py: This is a simple unittest code for testing a_comparison.py and sampling_method.py. It needs update for new modules.</dd>
   
   test_ana.py: This module tests if the analytical values are the same as indicated on the paper. The result is in Cehck Analytical Values.ipynb.
-  
+</dl>  
   
 I use ipython notebook to visualize the whole process and final results.
 
