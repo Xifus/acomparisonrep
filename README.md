@@ -3,9 +3,10 @@ These codes are trying to reproduce the results from Stefano Tarantola, William 
 In S. Tarantola et al, they used Sobol and LSS(Latin Supercube Sampling). For here, I used Sobol, Latin Hypercube Sampling, and Random by using Chaospy library (https://github.com/jonathf/chaospy).
 
 The main code files are:
-
+<dl>
   <dd>a_comparison.py: function to calculate test function; analytical values for corresponding test function; function for estimated variance; function for estimated first order effects and total effects (in two ways: Jansen 1999 e_sti_1; Sobol' 2007 e_sti_2); function for measuring convergence AES, MAES, AEST, MAEST. And also there are two tool functions for shifting sample matrix (less_eq_integer_matrix and shift).</dd>
-  
+</dl>
+
   calculation_plot.py: This is the main calculation code. It stores value of R replicated times of estimated si and sti for multiple N into a big matrix. After that, the function passes the matrix to calculate AES, MAES, AEST, MAEST. Finally, I use the value of AES, MAEST, AEST, MAEST to draw convergence and i_wise error plot for each case.
   
   compare_sti.py: This is a modified calculation_plot.py code for comparing the convergence rate and efficience of Jansen 1999 method and Sobol' 2007 method, according to A. Saltelli et al. "Variance based sensitivity analysis of model output. Design and estimator for the total sensitivity index". I keep sampling method, sampling matrix all the same and just change the total effects calculation method.
